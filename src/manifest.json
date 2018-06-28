@@ -1,7 +1,9 @@
 {
     "manifest_version": 2,
+    "version": "1.0.1",
 
     "name": "Bitbucket Comment Extractor",
+    "description": "A very simple extension that extracts comments from bitbucket and shows a modal to view them.",
 
     "browser_action": {
         "default_icon": "images/icon_16.png",

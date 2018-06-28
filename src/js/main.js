@@ -7,6 +7,7 @@ var toastr = require('toastr');
 function logComments(filter) {
     var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     var height = Math.floor(windowHeight/2);
+    var markup = "";
     var result = "<div style='width:100%;height:"+height+"px;overflow-y:scroll;border:solid 1px black;margin-bottom:10px;'><ul>";
     var url = window.location.href;
     if (url.indexOf('?') !== -1) {
@@ -29,16 +30,21 @@ function logComments(filter) {
             continue;
         }
         
-        result+= "<li style='margin-bottom: 8px'>" + text + "<a href='" + link + "'>View Comment</a>" + '</li>';
+        result += "<li style='margin-bottom: 8px'>" + text + "<a href='" + link + "'>View Comment</a>" + '</li>';
+        markup += "* " + text + " [Link|" + link + "]" + '\n';
     }
     
     result += '</ul></div>';
 
-    document.body.innerHTML += '<dialog style="width: 50%; padding:10px;">'+result+'<div style="width:100%;text-align:center;"><button>Close</button></div></dialog>';
+    document.body.innerHTML += '<dialog style="width: 50%; padding:10px;">'+result+'<div style="width:100%;text-align:center;"><button id="bit-btn-close">Close</button>&nbsp&nbsp<button id="bit-btn-copy">Copy Markup</button></div></dialog>';
     var dialog = document.querySelector("dialog")
-    dialog.querySelector("button").addEventListener("click", function() {
+    dialog.querySelector("#bit-btn-close").addEventListener("click", function() {
         dialog.close();
-    })
+    });
+    dialog.querySelector("#bit-btn-copy").addEventListener("click", function() {
+        navigator.clipboard.writeText(markup);
+        toastr.success('Markup copied to the clipboard');
+    });
     dialog.showModal();
 
     toastr.success('Comments Extracted');
