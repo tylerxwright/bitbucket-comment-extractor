@@ -36,14 +36,14 @@ function logComments(filter) {
     
     result += '</ul></div>';
 
-    document.body.innerHTML += '<dialog style="width: 50%; padding:10px;">'+result+'<div style="width:100%;text-align:center;"><button id="bit-btn-close">Close</button>&nbsp&nbsp<button id="bit-btn-copy">Copy Markup</button></div></dialog>';
+    document.body.innerHTML += '<dialog style="width: 50%; padding:10px;">'+result+'<div style="width:100%;text-align:center;"><button id="bit-btn-close">Close</button>&nbsp&nbsp<button id="bit-btn-copy">Copy Markdown</button></div></dialog>';
     var dialog = document.querySelector("dialog")
     dialog.querySelector("#bit-btn-close").addEventListener("click", function() {
         dialog.close();
     });
     dialog.querySelector("#bit-btn-copy").addEventListener("click", function() {
         navigator.clipboard.writeText(markup);
-        toastr.success('Markup copied to the clipboard');
+        toastr.success('Markdown copied to the clipboard');
     });
     dialog.showModal();
 
