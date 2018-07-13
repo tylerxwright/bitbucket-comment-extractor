@@ -51,10 +51,15 @@ function logComments(filter) {
     
     result += '</div>';
 
-    document.body.innerHTML += '<dialog style="width: 50%; padding:10px;">'+result+'<div style="width:100%;text-align:center;"><button id="bit-btn-close">Close</button>&nbsp&nbsp<button id="bit-btn-copy">Copy Markdown</button></div></dialog>';
-    var dialog = document.querySelector("dialog")
+    var dialog = document.createElement("dialog");
+    dialog.id = "bit-dialog";
+    dialog.style = "width: 50%; padding: 10px;";
+    dialog.innerHTML = result + '<div style="width:100%;text-align:center;"><button id="bit-btn-close">Close</button>&nbsp&nbsp<button id="bit-btn-copy">Copy Markdown</button></div>';
+    document.body.appendChild(dialog);
+    
     dialog.querySelector("#bit-btn-close").addEventListener("click", function() {
         dialog.close();
+        dialog.parentElement.removeChild(dialog);
     });
     dialog.querySelector("#bit-btn-copy").addEventListener("click", function() {
         navigator.clipboard.writeText(markup);
