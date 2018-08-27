@@ -11,6 +11,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     context: path.resolve('./src'),
     entry: {
+        background: path.join(__dirname, 'src', 'js', 'background.js'),
         main: path.join(__dirname, 'src', 'js', 'main.js'),
         popup: path.join(__dirname, 'src', 'js', 'popup.js'),
         options: path.join(__dirname, 'src', 'js', 'options.js')
@@ -62,6 +63,6 @@ module.exports = {
             template: path.join(__dirname, "src", "html", "options.html"),
             filename: "html/options.html",
             chunks: ["options"]
-        }),
+        })
     ]
 }

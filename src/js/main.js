@@ -4,7 +4,7 @@ require('../../node_modules/toastr/build/toastr.css');
 
 var toastr = require('toastr');
 
-function logComments(filter) {
+function showModal() {
     var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     var height = Math.floor(windowHeight/2);
     var markup = "";
@@ -13,7 +13,7 @@ function logComments(filter) {
     if (url.indexOf('?') !== -1) {
         url = url.substring(0, url.indexOf('?'));
     }
-    
+
     var messages = document.getElementsByClassName('message markup');
     var commentList = document.getElementsByClassName('comment-container comment-box');
     
@@ -26,10 +26,6 @@ function logComments(filter) {
         var text = messages[i].getAttribute('data-text');
         var id = messages[i].parentElement.parentElement.getAttribute('data-id');
         var link = url + "?commentId=" + id;
-        
-        if (filter && text.indexOf(filter) === -1) {
-            continue;
-        }
         
         markup += "* " + text + " [Link|" + link + "]" + '\n';
     }
@@ -68,10 +64,12 @@ function logComments(filter) {
     dialog.showModal();
 
     toastr.success('Comments Extracted');
-} 
+}
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        logComments();
+        if(request.type === "extract") {
+            showModal();
+        }
     }
 );

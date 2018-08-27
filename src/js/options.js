@@ -1,27 +1,24 @@
-// Saves options to chrome.storage
 function save_options() {
-    var pageToRunOn = document.getElementById('runOnPage').value;
+    var domain = document.getElementById('bitbucketDomain').value;
     chrome.storage.sync.set({
-        runOnPage: pageToRunOn
+        bitbucketDomain: domain
     }, function() {
-      // Update status to let user know options were saved.
-      var status = document.getElementById('status');
-      status.textContent = 'Options saved.';
-      setTimeout(function() {
-        status.textContent = '';
-      }, 750);
+        var status = document.getElementById('status');
+        status.textContent = 'Options saved.';
+        chrome.tabs.sendMessage(tabs[0].id, {type:"reload"});
+        setTimeout(function() {
+            status.textContent = '';
+        }, 750);
     });
-  }
-  
-  // Restores select box and checkbox state using the preferences
-  // stored in chrome.storage.
-  function restore_options() {
-    // Use default value color = 'red' and likesColor = true.
-    chrome.storage.sync.get({
-        runOnPage: '*'
-    }, function(items) {
-      document.getElementById('runOnPage').value = items.runOnPage;
+}
+
+function restore_options() {
+    chrome.storage.sync.get("bitbucketDomain", function(items) {
+        if(items.bitbucketDomain === undefined) {
+            items.bitbucketDomain = "https://bitbucket.org/"
+        }
+        document.getElementById('bitbucketDomain').value = items.bitbucketDomain+"*";
     });
-  }
-  document.addEventListener('DOMContentLoaded', restore_options);
-  document.getElementById('save').addEventListener('click', save_options);
+}
+document.addEventListener('DOMContentLoaded', restore_options);
+document.getElementById('save').addEventListener('click', save_options);

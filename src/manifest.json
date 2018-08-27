@@ -11,6 +11,10 @@
         "default_popup": "html/popup.html"
     },
 
+    "background": {
+        "scripts": ["js/background.bundle.js"]
+    },
+
     "options_page": "html/options.html",
 
     "content_scripts": [
@@ -30,6 +34,9 @@
 
     "permissions": [
         "storage",
-        "tabs"
+        "tabs",
+        "webRequest",
+        "webRequestBlocking",
+        "<all_urls>"
     ]
 }
