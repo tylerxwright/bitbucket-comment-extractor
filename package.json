@@ -1,6 +1,6 @@
 {
   "name": "bitbucket-comment-extractor",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Extracts comments",
   "main": "main.js",
   "scripts": {
